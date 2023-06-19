@@ -1,0 +1,17 @@
+name: CICD Demo
+on:
+ push:
+  branches:
+   - developer
+ pull_request:
+  branches:
+   - developer
+jobs:
+ build-and-test:
+  runs-on: macos-latest
+ steps:
+  - uses: actions/checkout@v2
+  - name: Select Xcode
+    run: sudo Xcode-select -switch /Applications/Xcode_13.2.1.app
+  - name: Build & Test
+    run: xcodebuild clean build test -workspace ProjectName.xcworkspace -scheme SchemeName -destination 'platform=iOS Simulator,name=iPhone 12 Pro,OS=15.2'
